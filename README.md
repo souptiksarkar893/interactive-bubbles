@@ -30,9 +30,10 @@ An interactive HTML5 Canvas application featuring animated bubbles and arrows. C
   - Red → Purple
   - Green → Dark Slate Gray
 - **Sound Effects**: Audio feedback when arrows hit circles using Web Audio API
-- **Particle Effects**: Explosion animations on impact with dynamic particles
+- **Particle Effects**: Explosion animations on impact with dynamic particles matching circle colors
 - **Reset Functionality**: Reset button to restore initial state
 - **Enhanced Mobile Support**: Touch events, haptic feedback, and visual touch indicators
+- **Sound Toggle**: Mute/unmute functionality with visual feedback
 - **Cross-Platform**: Works seamlessly on both mobile and desktop
 
 ## 🚀 Demo
@@ -108,9 +109,10 @@ interactive-bubbles/
 - `isPointInCircle()`: Collision detection for click/touch events
 - `handleCanvasInteraction()`: Unified handler for mouse clicks and touch events
 - `playHitSound()`: Generates dynamic sound effects using Web Audio API
-- `createExplosion()`: Creates particle explosion effects on impact
+- `createExplosion()`: Creates particle explosion effects with matching circle colors
+- `updateParticles()`: Manages particle lifecycle and rendering
 - `showTouchFeedback()`: Visual feedback for touch interactions
-- `toggleSound()`: Sound on/off control
+- `toggleSound()`: Sound on/off control with visual indicator
 - `resetApp()`: Restores application to initial state
 
 ### Animation Logic:
@@ -206,12 +208,12 @@ This project fulfills the following requirements:
 
 Potential improvements that could be added:
 
-- **Sound Effects**: Audio feedback when arrows hit circles
-- **Particle Effects**: Explosion animations on impact
-- **Score System**: Points for successful hits
-- **Multiple Levels**: Different difficulty levels
-- **Touch Support**: Enhanced mobile interaction
-- **Customization**: User-selectable colors and speeds
+- **Score System**: Points for successful hits and tracking high scores
+- **Multiple Levels**: Different difficulty levels with varying speeds
+- **Customization**: User-selectable colors and animation speeds
+- **Leaderboard**: Online score tracking and competition
+- **Power-ups**: Special effects and bonus features
+- **Background Music**: Ambient music with volume controls
 
 ## 👨‍💻 Author
 
