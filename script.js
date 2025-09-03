@@ -49,10 +49,10 @@ const baseCircles = [
 
 // Arrow positions and animation state (base positions for 600x400 canvas)
 const baseArrows = [
-    { x: 520, y: 100, targetX: 80 + 30 + 20, targetY: 100, isMoving: false, originalX: 520 }, // 80 (circle x) + 30 (radius) + 20 (arrow size)
-    { x: 520, y: 180, targetX: 80 + 30 + 20, targetY: 180, isMoving: false, originalX: 520 },
-    { x: 520, y: 260, targetX: 80 + 30 + 20, targetY: 260, isMoving: false, originalX: 520 },
-    { x: 520, y: 340, targetX: 80 + 30 + 20, targetY: 340, isMoving: false, originalX: 520 }
+    { x: 520, y: 100, targetX: 110, targetY: 100, isMoving: false, originalX: 520 }, // Will be recalculated in updatePositions
+    { x: 520, y: 180, targetX: 110, targetY: 180, isMoving: false, originalX: 520 },
+    { x: 520, y: 260, targetX: 110, targetY: 260, isMoving: false, originalX: 520 },
+    { x: 520, y: 340, targetX: 110, targetY: 340, isMoving: false, originalX: 520 }
 ];
 
 // Scaled positions
@@ -69,7 +69,9 @@ function updatePositions() {
     
     arrows = baseArrows.map((arrow, index) => {
         const scaledCircleX = baseCircles[index].x * scaleX;
-        const targetX = scaledCircleX + CIRCLE_RADIUS + (ARROW_SIZE * 0.5); // Position arrow tip at circle edge
+        // Arrow tip is at (x - ARROW_SIZE), so we need to position the arrow such that
+        // its tip (x - ARROW_SIZE) touches the circle edge (scaledCircleX + CIRCLE_RADIUS)
+        const targetX = scaledCircleX + CIRCLE_RADIUS + ARROW_SIZE;
         
         return {
             ...arrow,
