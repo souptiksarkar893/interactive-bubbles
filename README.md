@@ -2,21 +2,25 @@
 
 An interactive HTML5 Canvas application featuring animated bubbles and arrows. Click on any circle to trigger arrow animations with dynamic color-changing effects.
 
-![Bubbles App Demo](https://img.shields.io/badge/Demo-Live-brightgreen)
+## 🌐 Live Demo
+
+**🎮 [Play the Interactive Bubbles App](https://souptiksarkar893.github.io/interactive-bubbles/)**
 
 ## 🎯 Features
 
 ### Module 1: Canvas Graphics
+
 - **HTML5 Canvas**: Single canvas element (600x400px) for all graphics
 - **4 Colored Circles**: Positioned on the left side with distinct colors:
   - 🟡 Gold Circle
-  - 🔵 Blue Circle  
+  - 🔵 Blue Circle
   - 🔴 Red Circle
   - 🟢 Green Circle
 - **Arrow Graphics**: Corresponding arrows positioned on the right side
 - **Clean Design**: All elements drawn on a single canvas with proper styling
 
 ### Module 2: Interactive Animations
+
 - **Click Detection**: Click inside any circle to trigger its corresponding arrow
 - **Smooth Animation**: Arrows move smoothly towards clicked circles using `requestAnimationFrame`
 - **Color Transformation**: Circles change colors when arrows hit them:
@@ -28,9 +32,12 @@ An interactive HTML5 Canvas application featuring animated bubbles and arrows. C
 
 ## 🚀 Demo
 
-Simply open `index.html` in any modern web browser to run the application.
+**🌐 Live Version**: [https://souptiksarkar893.github.io/interactive-bubbles/](https://souptiksarkar893.github.io/interactive-bubbles/)
+
+Or simply open `index.html` in any modern web browser to run locally.
 
 ### How to Use:
+
 1. Click inside any colored circle
 2. Watch the corresponding arrow move towards the circle
 3. Observe the color change when the arrow hits the circle
@@ -74,6 +81,7 @@ interactive-bubbles/
 ## 🔧 Technical Implementation
 
 ### Key Functions:
+
 - `drawCircle()`: Renders circles with specified colors and positions
 - `drawArrow()`: Draws arrow shapes with head and tail
 - `animate()`: Handles smooth arrow movement animations
@@ -81,6 +89,7 @@ interactive-bubbles/
 - `resetApp()`: Restores application to initial state
 
 ### Animation Logic:
+
 - Uses distance calculations for smooth movement
 - Implements frame-based animation with consistent speed
 - Handles multiple simultaneous animations
@@ -97,28 +106,33 @@ interactive-bubbles/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Any modern web browser
 - No additional software or dependencies required
 
 ### Installation
+
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/souptiksarkar893/interactive-bubbles.git
    ```
 
 2. Navigate to the project directory:
+
    ```bash
    cd interactive-bubbles
    ```
 
 3. Open `index.html` in your browser:
+
    ```bash
    # On Windows
    start index.html
-   
+
    # On macOS
    open index.html
-   
+
    # On Linux
    xdg-open index.html
    ```
@@ -128,12 +142,14 @@ interactive-bubbles/
 This project fulfills the following requirements:
 
 ### ✅ Module 1: Basic Canvas Setup
+
 - [x] HTML5 Canvas element implementation
 - [x] 4 circles with different colors on the left side
 - [x] Corresponding arrows on the right side
 - [x] All elements on single canvas
 
 ### ✅ Module 2: Interactive Features
+
 - [x] Click detection inside circles
 - [x] Arrow animation towards clicked circles
 - [x] Color change when arrows hit circles
@@ -141,6 +157,7 @@ This project fulfills the following requirements:
 - [x] Combined implementation in single application
 
 ### ✅ Technical Constraints
+
 - [x] Plain JavaScript and HTML only
 - [x] No third-party libraries (jQuery, KineticJS, etc.)
 - [x] Modern web standards compliance
@@ -160,6 +177,7 @@ Potential improvements that could be added:
 ## 👨‍💻 Author
 
 **Souptik Sarkar**
+
 - GitHub: [@souptiksarkar893](https://github.com/souptiksarkar893)
 
 ## 📄 License
