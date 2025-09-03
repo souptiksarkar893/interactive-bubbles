@@ -29,6 +29,12 @@ h1 {
     position: relative;
 }
 
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 canvas {
     border: 2px solid #333;
     background-color: white;
@@ -60,6 +66,18 @@ button:active {
     transform: scale(0.98);
 }
 
+/* Touch feedback animation */
+@keyframes touchRipple {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
+
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
     body {
@@ -74,6 +92,11 @@ button:active {
     .canvas-container {
         align-items: center;
         width: 100%;
+    }
+    
+    .controls {
+        justify-content: center;
+        gap: 15px;
     }
     
     canvas {

@@ -29,8 +29,10 @@ An interactive HTML5 Canvas application featuring animated bubbles and arrows. C
   - Blue → Gray
   - Red → Purple
   - Green → Dark Slate Gray
+- **Sound Effects**: Audio feedback when arrows hit circles using Web Audio API
+- **Particle Effects**: Explosion animations on impact with dynamic particles
 - **Reset Functionality**: Reset button to restore initial state
-- **Mobile Support**: Touch events for mobile devices
+- **Enhanced Mobile Support**: Touch events, haptic feedback, and visual touch indicators
 - **Cross-Platform**: Works seamlessly on both mobile and desktop
 
 ## 🚀 Demo
@@ -42,21 +44,25 @@ Or simply open `index.html` in any modern web browser to run locally.
 ### How to Use:
 
 1. **Desktop**: Click inside any colored circle
-2. **Mobile**: Tap inside any colored circle
+2. **Mobile**: Tap inside any colored circle (with haptic feedback)
 3. Watch the corresponding arrow move towards the circle
-4. Observe the color change when the arrow hits the circle
-5. Use the Reset button to return to the initial state
-6. Try clicking/tapping multiple circles for simultaneous animations
-7. **Responsive**: The app automatically adapts to your screen size
+4. **Experience**: Enjoy sound effects and particle explosions when arrows hit
+5. Observe the color change when the arrow hits the circle
+6. Use the Reset button to return to the initial state
+7. Toggle the sound on/off with the sound button (🔊/🔇)
+8. Try clicking/tapping multiple circles for simultaneous animations
+9. **Responsive**: The app automatically adapts to your screen size
 
 ## 🛠️ Technologies Used
 
 - **HTML5**: Semantic markup and responsive Canvas element
 - **CSS3**: Responsive styling with Flexbox layout and media queries
 - **Vanilla JavaScript**: Pure JavaScript with no external libraries
-- **Canvas 2D API**: For drawing circles, arrows, and animations
+- **Canvas 2D API**: For drawing circles, arrows, particles, and animations
+- **Web Audio API**: For dynamic sound effect generation
 - **requestAnimationFrame**: For smooth 60fps animations
-- **Touch Events**: Mobile touch support for interactive elements
+- **Touch Events**: Mobile touch support with haptic feedback
+- **Vibration API**: Haptic feedback for mobile devices
 - **Responsive Design**: Media queries and flexible layouts for all devices
 
 ## 📁 Project Structure
@@ -94,12 +100,17 @@ interactive-bubbles/
 ### Key Functions:
 
 - `initializeCanvas()`: Sets up responsive canvas sizing based on screen dimensions
+- `initializeAudio()`: Sets up Web Audio API for sound effects
 - `updatePositions()`: Scales circle and arrow positions for different screen sizes
 - `drawCircle()`: Renders circles with specified colors and positions
 - `drawArrow()`: Draws arrow shapes with head and tail
 - `animate()`: Handles smooth arrow movement animations
 - `isPointInCircle()`: Collision detection for click/touch events
 - `handleCanvasInteraction()`: Unified handler for mouse clicks and touch events
+- `playHitSound()`: Generates dynamic sound effects using Web Audio API
+- `createExplosion()`: Creates particle explosion effects on impact
+- `showTouchFeedback()`: Visual feedback for touch interactions
+- `toggleSound()`: Sound on/off control
 - `resetApp()`: Restores application to initial state
 
 ### Animation Logic:
