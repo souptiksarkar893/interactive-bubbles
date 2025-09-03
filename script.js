@@ -4,26 +4,77 @@ const ctx = canvas.getContext('2d');
 const resetBtn = document.getElementById('resetBtn');
 
 // Configuration
-const CIRCLE_RADIUS = 30;
-const ARROW_SIZE = 20;
+let CANVAS_WIDTH = 600;
+let CANVAS_HEIGHT = 400;
+let CIRCLE_RADIUS = 30;
+let ARROW_SIZE = 20;
 const ANIMATION_SPEED = 3;
 
-// Circle positions and colors
-const circles = [
+// Scale factors for responsive design
+let scaleX = 1;
+let scaleY = 1;
+
+// Initialize responsive canvas
+function initializeCanvas() {
+    const container = canvas.parentElement;
+    const maxWidth = Math.min(window.innerWidth - 20, 600);
+    const maxHeight = Math.min(window.innerHeight - 150, 400);
+    
+    // Calculate scale to fit screen while maintaining aspect ratio
+    const scale = Math.min(maxWidth / 600, maxHeight / 400, 1);
+    
+    CANVAS_WIDTH = 600 * scale;
+    CANVAS_HEIGHT = 400 * scale;
+    CIRCLE_RADIUS = 30 * scale;
+    ARROW_SIZE = 20 * scale;
+    
+    canvas.width = CANVAS_WIDTH;
+    canvas.height = CANVAS_HEIGHT;
+    
+    // Update scale factors for coordinate conversion
+    scaleX = CANVAS_WIDTH / 600;
+    scaleY = CANVAS_HEIGHT / 400;
+    
+    // Update circle and arrow positions based on new scale
+    updatePositions();
+}
+
+// Circle positions and colors (base positions for 600x400 canvas)
+const baseCircles = [
     { x: 80, y: 100, originalColor: '#FFD700', currentColor: '#FFD700' }, // Gold
     { x: 80, y: 180, originalColor: '#4169E1', currentColor: '#4169E1' }, // Blue
     { x: 80, y: 260, originalColor: '#DC143C', currentColor: '#DC143C' }, // Red
     { x: 80, y: 340, originalColor: '#32CD32', currentColor: '#32CD32' }  // Green
 ];
 
-// Arrow positions and animation state
-// Target X should be at circle edge (circle.x + radius + arrow size)
-const arrows = [
-    { x: 520, y: 100, targetX: 80 + CIRCLE_RADIUS + ARROW_SIZE, targetY: 100, isMoving: false, originalX: 520 },
-    { x: 520, y: 180, targetX: 80 + CIRCLE_RADIUS + ARROW_SIZE, targetY: 180, isMoving: false, originalX: 520 },
-    { x: 520, y: 260, targetX: 80 + CIRCLE_RADIUS + ARROW_SIZE, targetY: 260, isMoving: false, originalX: 520 },
-    { x: 520, y: 340, targetX: 80 + CIRCLE_RADIUS + ARROW_SIZE, targetY: 340, isMoving: false, originalX: 520 }
+// Arrow positions and animation state (base positions for 600x400 canvas)
+const baseArrows = [
+    { x: 520, y: 100, targetX: 130, targetY: 100, isMoving: false, originalX: 520 },
+    { x: 520, y: 180, targetX: 130, targetY: 180, isMoving: false, originalX: 520 },
+    { x: 520, y: 260, targetX: 130, targetY: 260, isMoving: false, originalX: 520 },
+    { x: 520, y: 340, targetX: 130, targetY: 340, isMoving: false, originalX: 520 }
 ];
+
+// Scaled positions
+let circles = [];
+let arrows = [];
+
+// Update positions based on canvas scale
+function updatePositions() {
+    circles = baseCircles.map(circle => ({
+        ...circle,
+        x: circle.x * scaleX,
+        y: circle.y * scaleY
+    }));
+    
+    arrows = baseArrows.map(arrow => ({
+        ...arrow,
+        x: arrow.x * scaleX,
+        y: arrow.y * scaleY,
+        targetX: (80 + CIRCLE_RADIUS + ARROW_SIZE) * scaleX,
+        originalX: arrow.originalX * scaleX
+    }));
+}
 
 // Hit colors for when arrows hit circles
 const hitColors = ['#FFA500', '#808080', '#800080', '#2F4F4F']; // Orange, Gray, Purple, Dark Slate Gray
@@ -62,7 +113,7 @@ function drawArrow(x, y, size) {
 // Draw all elements
 function draw() {
     // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
     // Draw circles
     circles.forEach(circle => {
@@ -116,11 +167,24 @@ function animate() {
     }
 }
 
-// Handle canvas click
-function handleCanvasClick(event) {
+// Handle canvas click and touch
+function handleCanvasInteraction(event) {
     const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    let x, y;
+    
+    if (event.type === 'touchstart') {
+        event.preventDefault(); // Prevent scrolling
+        const touch = event.touches[0];
+        x = touch.clientX - rect.left;
+        y = touch.clientY - rect.top;
+    } else {
+        x = event.clientX - rect.left;
+        y = event.clientY - rect.top;
+    }
+    
+    // Convert to canvas coordinates
+    x = x * (CANVAS_WIDTH / rect.width);
+    y = y * (CANVAS_HEIGHT / rect.height);
 
     // Check if click is inside any circle
     circles.forEach((circle, index) => {
@@ -162,8 +226,16 @@ function resetApp() {
 }
 
 // Event listeners
-canvas.addEventListener('click', handleCanvasClick);
+canvas.addEventListener('click', handleCanvasInteraction);
+canvas.addEventListener('touchstart', handleCanvasInteraction);
 resetBtn.addEventListener('click', resetApp);
 
-// Initial draw
+// Handle window resize
+window.addEventListener('resize', () => {
+    initializeCanvas();
+    draw();
+});
+
+// Initialize and draw
+initializeCanvas();
 draw();
