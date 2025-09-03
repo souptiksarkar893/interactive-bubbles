@@ -4,7 +4,7 @@ An interactive HTML5 Canvas application featuring animated bubbles and arrows. C
 
 ## 🌐 Live Demo
 
-**🎮 [Play the Interactive Bubbles App](https://souptiksarkar893.github.io/interactive-bubbles/)**
+**🎮 [Play the Interactive Bubbles App](https://bubbles-app-tawny.vercel.app/)**
 
 ## 🎯 Features
 
@@ -38,7 +38,7 @@ An interactive HTML5 Canvas application featuring animated bubbles and arrows. C
 
 ## 🚀 Demo
 
-**🌐 Live Version**: [https://souptiksarkar893.github.io/interactive-bubbles/](https://souptiksarkar893.github.io/interactive-bubbles/)
+**🌐 Live Version**: [https://bubbles-app-tawny.vercel.app/](https://bubbles-app-tawny.vercel.app/)
 
 Or simply open `index.html` in any modern web browser to run locally.
 
