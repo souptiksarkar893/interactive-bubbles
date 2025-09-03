@@ -49,10 +49,10 @@ const baseCircles = [
 
 // Arrow positions and animation state (base positions for 600x400 canvas)
 const baseArrows = [
-    { x: 520, y: 100, targetX: 130, targetY: 100, isMoving: false, originalX: 520 },
-    { x: 520, y: 180, targetX: 130, targetY: 180, isMoving: false, originalX: 520 },
-    { x: 520, y: 260, targetX: 130, targetY: 260, isMoving: false, originalX: 520 },
-    { x: 520, y: 340, targetX: 130, targetY: 340, isMoving: false, originalX: 520 }
+    { x: 520, y: 100, targetX: 80 + 30 + 20, targetY: 100, isMoving: false, originalX: 520 }, // 80 (circle x) + 30 (radius) + 20 (arrow size)
+    { x: 520, y: 180, targetX: 80 + 30 + 20, targetY: 180, isMoving: false, originalX: 520 },
+    { x: 520, y: 260, targetX: 80 + 30 + 20, targetY: 260, isMoving: false, originalX: 520 },
+    { x: 520, y: 340, targetX: 80 + 30 + 20, targetY: 340, isMoving: false, originalX: 520 }
 ];
 
 // Scaled positions
@@ -67,13 +67,19 @@ function updatePositions() {
         y: circle.y * scaleY
     }));
     
-    arrows = baseArrows.map(arrow => ({
-        ...arrow,
-        x: arrow.x * scaleX,
-        y: arrow.y * scaleY,
-        targetX: (80 + CIRCLE_RADIUS + ARROW_SIZE) * scaleX,
-        originalX: arrow.originalX * scaleX
-    }));
+    arrows = baseArrows.map((arrow, index) => {
+        const scaledCircleX = baseCircles[index].x * scaleX;
+        const targetX = scaledCircleX + CIRCLE_RADIUS + (ARROW_SIZE * 0.5); // Position arrow tip at circle edge
+        
+        return {
+            ...arrow,
+            x: arrow.x * scaleX,
+            y: arrow.y * scaleY,
+            targetX: targetX,
+            targetY: arrow.targetY * scaleY,
+            originalX: arrow.originalX * scaleX
+        };
+    });
 }
 
 // Hit colors for when arrows hit circles
@@ -135,6 +141,7 @@ function isPointInCircle(x, y, circleX, circleY, radius) {
 // Animate arrow movement
 function animate() {
     let anyMoving = false;
+    const scaledAnimationSpeed = ANIMATION_SPEED * Math.min(scaleX, scaleY); // Scale animation speed
 
     arrows.forEach((arrow, index) => {
         if (arrow.isMoving) {
@@ -144,7 +151,7 @@ function animate() {
             const dx = arrow.targetX - arrow.x;
             const distance = Math.abs(dx);
 
-            if (distance <= ANIMATION_SPEED) {
+            if (distance <= scaledAnimationSpeed) {
                 // Arrow has reached the circle
                 arrow.x = arrow.targetX;
                 arrow.isMoving = false;
@@ -153,7 +160,7 @@ function animate() {
                 circles[index].currentColor = hitColors[index];
             } else {
                 // Move arrow towards circle
-                arrow.x += dx > 0 ? ANIMATION_SPEED : -ANIMATION_SPEED;
+                arrow.x += dx > 0 ? scaledAnimationSpeed : -scaledAnimationSpeed;
             }
         }
     });
